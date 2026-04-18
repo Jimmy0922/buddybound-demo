@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>BuddyBound · AI Travel Partner Matching</title>
+    <!-- Google Fonts & simple reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafcff;
+            color: #1a2c3e;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* header / nav */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1E3C72 0%, #2A5298 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            background: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2A5298;
+        }
+
+        /* buttons */
+        .btn-primary {
+            background: #1E3C72;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #0f2b4f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30,60,114,0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #1E3C72;
+            color: #1E3C72;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: 0.2s;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: #1E3C72;
+            color: white;
+        }
+
+        /* hero */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            padding: 60px 0 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            background: #e9f0fc;
+            color: #1E3C72;
+            border-radius: 60px;
+            padding: 6px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            background: linear-gradient(130deg, #1E3C72, #3b6cb7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #4a627a;
+            max-width: 550px;
+            margin-bottom: 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .stat span {
+            font-weight: 800;
+            font-size: 28px;
+            color: #1E3C72;
+        }
+
+        .hero-image {
+            flex: 1;
+            background: linear-gradient(145deg, #eef3fc, #e2eaf5);
+            border-radius: 48px;
+            padding: 32px;
+            text-align: center;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.05);
+        }
+
+        .ai-illustration {
+            font-size: 72px;
+            margin-bottom: 16px;
+        }
+
+        /* sections */
+        .section {
+            padding: 72px 0;
+            border-bottom: 1px solid #eef2f8;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            letter-spacing: -0.3px;
+        }
+
+        .cards-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            flex: 1 1 280px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+            border: 1px solid #eef2fa;
+            transition: all 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: #cddfef;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        /* pricing table */
+        .pricing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px 28px;
+            flex: 1 1 260px;
+            border: 1px solid #e2ebf6;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .pricing-card.popular {
+            border: 2px solid #2A5298;
+            background: #fafdff;
+            position: relative;
+        }
+
+        .badge-popular {
+            background: #2A5298;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 30px;
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: 800;
+            margin: 20px 0 8px;
+            color: #1a2c3e;
+        }
+
+        .price small {
+            font-size: 16px;
+            font-weight: 500;
+            color: #6f8faf;
+        }
+
+        .plan-audience {
+            font-size: 14px;
+            background: #eef2fa;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            margin-bottom: 16px;
+            color: #1E3C72;
+            font-weight: 500;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 28px 0;
+            text-align: left;
+            padding: 0 8px;
+        }
+
+        .feature-list li {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #2A5298;
+            font-weight: 700;
+        }
+
+        /* trust badge */
+        .trust-badge {
+            background: #eef3fc;
+            border-radius: 60px;
+            padding: 4px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* footer */
+        .footer {
+            padding: 48px 0 32px;
+            text-align: center;
+            color: #5c6f87;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            .hero-content h1 {
+                font-size: 38px;
+            }
+            .section {
+                padding: 48px 0;
+            }
+            .logo img {
+                height: 32px;
+            }
+        }
+
+        .verified-icon {
+            background: #e0f0ea;
+            border-radius: 30px;
+            padding: 6px 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .ai-speed {
+            background: #f2eef9;
+            border-radius: 100px;
+            display: inline-block;
+            padding: 4px 12px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navigation -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="BuddyBound.png" alt="BuddyBound logo">
+            BuddyBound
+        </div>
+        <div class="nav-links">
+            <a href="#">How it works</a>
+            <a href="#">Pricing</a>
+            <a href="#">Safety</a>
+            <a href="#">Sign in</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✨ AI‑powered matching · 15 seconds</div>
+            <h1>Find your perfect travel partner in seconds</h1>
+            <p>No more endless scrolling. BuddyBound’s smart AI delivers up to 3 highly compatible travel partners — verified profiles, tailored to your style and budget.</p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <a href="#" class="btn-primary">Start free trial →</a>
+                <a href="#" class="btn-outline">See how it works</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><span>15s</span><br>avg match time</div>
+                <div class="stat"><span>3</span><br>best options</div>
+                <div class="stat"><span>✓ ID</span><br>verification badge</div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div>
+                <div class="ai-illustration">🤝✨</div>
+                <div class="ai-speed">AI matching · 3 high‑quality partners</div>
+                <div style="margin-top: 20px; font-size: 14px; color: #2A5298;">⬤ personality · budget · dates</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem / Solution summary (concise) -->
+    <div class="section">
+        <div class="section-title">Stop wasting hours · Start matching smart</div>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">⏱️</div>
+                <h3>Decision fatigue</h3>
+                <p>Scrolling profiles & mismatched chats leads to exhaustion. 58% of travelers feel overwhelmed by too many choices.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>AI in 15 seconds</h3>
+                <p>Tell us your travel style, dates, budget — our engine delivers ≤3 ideal partner suggestions, not hundreds of random profiles.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h3>Verified trust</h3>
+                <p>Mandatory ID verification (passport/phone). Official badge for fully verified users — travel with peace of mind.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI matching experience -->
+    <div class="section" style="background: #f8fbfe; border-radius: 48px; margin: 24px 0; border-bottom: none;">
+        <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+            <span class="trust-badge">🎯 How our AI works</span>
+            <h2 style="font-size: 32px; margin: 24px 0 16px;">Your perfect travel companion, curated in real time</h2>
+            <p style="font-size: 17px; color: #2c4c6e;">Input destination, travel dates, budget, personality tags → AI scans compatibility → up to 3 highly matching partners appear <strong>within 15 seconds</strong>. Chat, plan, and after your trip, rate each other to improve future matches.</p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px;">
+                <div><span style="font-weight:800;">✅</span> Personality & travel pace</div>
+                <div><span style="font-weight:800;">💰</span> Budget alignment (±20%)</div>
+                <div><span style="font-weight:800;">📅</span> Itinerary compatibility</div>
+                <div><span style="font-weight:800;">⭐</span> Post‑trip ratings & feedback</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Plans (UPDATED with USD equivalents) -->
+    <div class="section">
+        <div class="section-title">Simple, flexible pricing</div>
+        <div class="pricing-grid">
+            <!-- Basic plan -->
+            <div class="pricing-card">
+                <h3>Basic</h3>
+                <div class="price">0 HKD</div>
+                <div style="font-size: 14px; margin-bottom: 8px;">Forever free</div>
+                <div class="plan-audience">👤 Perfect for budget-conscious explorers</div>
+                <ul class="feature-list">
+                    <li>Manual filter & self‑search</li>
+                    <li>Create profile & personality tags</li>
+                    <li>Browse community</li>
+                </ul>
+                <a href="#" class="btn-outline" style="width:100%; box-sizing:border-box;">Get started</a>
+            </div>
+
+            <!-- Monthly Premium (frequent travelers) -->
+            <div class="pricing-card popular">
+                <div class="badge-popular">Most popular</div>
+                <h3>Monthly Premium</h3>
+                <div class="price">20 HKD</div>
+                <div style="font-size: 13px; color: #6f8faf; margin-bottom: 6px;">~2.6 USD / month</div>
+                <div class="plan-audience">✈️ Ideal for frequent travelers</div>
+                <ul class="feature-list">
+                    <li>Unlimited AI matching</li>
+                    <li>Priority support & full verification badge</li>
+                    <li>Cancel anytime during trial → 0 HKD</li>
+                    <li>✨ 1‑month free trial included</li>
+                </ul>
+                <a href="#" class="btn-primary" style="width:100%; box-sizing:border-box;">Start free trial</a>
+                <div style="font-size:12px; margin-top: 12px;">First 2 months avg. 10 HKD/month</div>
+            </div>
+
+            <!-- One-time premium (non-frequent) -->
+            <div class="pricing-card">
+                <h3>One‑time Premium</h3>
+                <div class="price">10 HKD</div>
+                <div style="font-size: 13px; color: #6f8faf; margin-bottom: 6px;">~1.3 USD / use</div>
+                <div class="plan-audience">🎒 Perfect for occasional travelers</div>
+                <ul class="feature-list">
+                    <li>One AI‑powered match session</li>
+                    <li>No recurring charge</li>
+                    <li>Flexible, pay only when you need it</li>
+                </ul>
+                <a href="#" class="btn-outline" style="width:100%; box-sizing:border-box;">Try one match</a>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 32px; font-size: 14px; color: #5b7a9a;">* Free users can still find travel partners via manual filters — no AI matching included.</p>
+    </div>
+
+    <!-- Safety & verification section -->
+    <div class="section">
+        <div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: center;">
+            <div style="flex: 1;">
+                <span class="verified-icon">🛡️ verified identity</span>
+                <h2 style="margin: 20px 0 16px;">Trust & safety first</h2>
+                <p>Before using our service, users complete at least one identity verification (passport upload or SMS confirmation). Fully verified members receive an official badge, building a safer community for Gen Z travelers in HK & Mainland China.</p>
+                <div style="margin-top: 24px;">
+                    <span>✓ Government ID verification optional</span><br>
+                    <span>✓ Post‑trip ratings & review system</span><br>
+                    <span>✓ Real‑time chat reporting</span>
+                </div>
+            </div>
+            <div style="flex: 1; background: #eef3fa; border-radius: 32px; padding: 28px; text-align: center;">
+                <div style="font-size: 48px;">🔐✨</div>
+                <div><strong>“BuddyBound Trustmark”</strong><br>Verified identity badge displayed on profile</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Company intro -->
+    <div class="section" style="background: white; border-radius: 40px; border: 1px solid #eef2f0;">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <div class="logo" style="justify-content: center; font-size: 32px;">
+                <img src="BuddyBound.png" alt="BuddyBound logo" style="height: 40px;">
+                BuddyBound
+            </div>
+            <p style="margin: 16px 0 12px; color: #2c3e50;">Founded in 2026 by five co‑founders: Jimmy Chau (CEO), Issac Yeung (CIO), Enzo Mutaganda (CFO), Charlotte Yeung (CMO), and Tim Ravipanich (COO). We are an emerging AI‑driven travel partner matching platform targeting Gen Z travelers (18–29) in Hong Kong and Mainland China. </p>
+            <p>One of the few platforms using AI to deliver high‑quality, convenient travel companion matching. Our mission: help every traveler find the right partner in seconds, with trust and ease.</p>
+            <div style="display: flex; justify-content: center; gap: 24px; margin-top: 24px; flex-wrap: wrap;">
+                <div>⭐ 85% satisfaction target</div>
+                <div>⚡ 15s matching</div>
+                <div>🌏 Asia first (HK → SEA)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2026 BuddyBound — AI Travel Companion Matching. Prototype for presentation.</p>
+        <p style="margin-top: 12px;">📍 Hong Kong · AI‑powered · Safety first</p>
+    </div>
+</div>
+
+</body>
+</html>
